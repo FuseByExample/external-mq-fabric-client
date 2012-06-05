@@ -5,11 +5,11 @@ This project shows how to connect to Fuse MQ message broker running in Fuse Fabr
 
 This project reuses the classes and resources from Fuse By Example's "Getting Started with ActiveMQ" project to demonstrate the minimal changes necessary to discover and connect to Fuse MQ brokers deployed within Fuse Fabric.
 
-The Getting Started with ActiveMQ project's used brokerUrl like this:
+The Getting Started with ActiveMQ project used brokerUrl like this:
 
     failover:(tcp://host1:port1,tcp://host2:port2)
 
-which are now replaced with values like this:
+which are now replaced with values like this (that also handle failover):
 
     discovery:(fabric:broker-group-name)
 
@@ -19,11 +19,11 @@ In addition to changing the brokerUrl's, two other changes are needed to support
 Setting the zookeeper.url
 -------------------------
 
-On a typical developer machine, with Fuse Management Console running locally, the zookeeper.url System property should be set to point to the URL of the Fuse Fabric's Zookeeper instance which defaults to localhost:2181.  One can append
+On a typical developer machine, with Fuse Management Console running locally, the zookeeper.url System property should be set to the URL of the Fuse Fabric's Zookeeper instance which defaults to localhost:2181.  One can simply append the property like this to the startup comand line:
 
 	-Dzookeeper.url=localhost:2181 
 	
-to the startup command line, or add
+or add
 
     <systemProperty>
         <key>zookeeper.url</key>
@@ -82,7 +82,7 @@ After the consumer is running, open another shell, change to the project root an
 
 	> mvn -e -P producer-default
 
-Here are some console messages you should see when running the example:
+Here are some console messages you should see from the consumer when running the example:
 
 	******************************
 	Connecting to Fuse MQ Broker using URL: discovery:(fabric:default)
@@ -110,13 +110,13 @@ Running the example against a fabric-based network of fault-tolerant brokers
 
 Start a fabric-based network of fault-tolerant (master/slave) brokers.  For instructions on how to configure and deploy such a network, see the blog post [here](http://fusebyexample.blogspot.com/2012/06/using-fuse-management-console-and-fuse.html).   Summary instructions are also included below.
 
-This network features two broker groups:  mq-east and mq-west
+This configuration features two broker groups networked together, mq-east and mq-west, each of which is comprised of a master/slave pair (four brokers total).  Consumers will connect to the active broker in the mq-west group; producers to the active broker in the mq-east group, insuring that messages flow across the network.  After the example is up and running, one can kill either or both of the active brokers and observe the continued operation of the broker network.
 
-To start the consumer open a shell, cd to the project root and run the command:
+To start the consumer open a shell, change to the project root and run the command:
 
 	> mvn -e -P consumer-west
 
-After the consumer is running, open another shell, cd to the project root and run the command:
+After the consumer is running, open another shell, change to the project root and run the command:
 
 	> mvn -e -P producer-east
 
