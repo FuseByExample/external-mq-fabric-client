@@ -19,7 +19,7 @@ In addition to changing the broker URL's, two other changes are needed to suppor
 Setting the zookeeper.url
 -------------------------
 
-On a typical developer machine, with Fuse Management Console running locally, the zookeeper.url System property should be set to the URL of the Fuse Fabric's Zookeeper instance, which defaults to localhost:2181.  One can simply append the property to the startup comand line like this:
+On a typical developer machine, with Fuse Management Console running locally, the zookeeper.url System property should be set to the URL of the Fuse Fabric's Zookeeper instance, which defaults to localhost:2181.  One can simply append the property to the startup command line like this:
 
 	-Dzookeeper.url=localhost:2181 
 	
@@ -98,7 +98,7 @@ Here are some console messages you should see from the consumer when running the
 	Starting StateChangeDispatcher
 	Adding new broker connection URL: tcp://mbrooks1.local:50865
 	Successfully connected to tcp://mbrooks1.local:50865
-	Start consuming messages from queue://test.fabric.simple with 120000ms timeout
+	Start consuming messages from queue://fabric.simple with 120000ms timeout
 	Got 1. message: 1. message sent
 	Got 2. message: 2. message sent
 	Got 3. message: 3. message sent
