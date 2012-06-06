@@ -5,7 +5,7 @@ This project shows how to connect to Fuse MQ message brokers running in Fuse Fab
 
 This project reuses the classes and resources from Fuse By Example's "Getting Started with ActiveMQ" project to demonstrate the minimal changes necessary to discover and connect to Fuse MQ brokers deployed within Fuse Fabric.
 
-The Getting Started with ActiveMQ project used broker URL's like this:
+The Getting Started with ActiveMQ project uses broker URL's like this:
 
     failover:(tcp://host1:port1,tcp://host2:port2)
 
