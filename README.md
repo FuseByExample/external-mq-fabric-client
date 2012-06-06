@@ -5,25 +5,25 @@ This project shows how to connect to Fuse MQ message broker running in Fuse Fabr
 
 This project reuses the classes and resources from Fuse By Example's "Getting Started with ActiveMQ" project to demonstrate the minimal changes necessary to discover and connect to Fuse MQ brokers deployed within Fuse Fabric.
 
-The Getting Started with ActiveMQ project used brokerUrl like this:
+The Getting Started with ActiveMQ project used broker URL's like this:
 
     failover:(tcp://host1:port1,tcp://host2:port2)
 
-which are now replaced with values like this (that also handle failover):
+which are replaced in this project with values like this (that also handle failover):
 
     discovery:(fabric:broker-group-name)
 
-In addition to changing the brokerUrl's, two other changes are needed to support fabric discovery: a "zookeeper.url" System property needs to be set in the environment, and a few fabric libraries must be added to the classpath.
+In addition to changing the broker URL's, two other changes are needed to support fabric discovery: a "zookeeper.url" System property needs to be set in the environment, and a few fabric libraries must be added to the classpath.
 
 
 Setting the zookeeper.url
 -------------------------
 
-On a typical developer machine, with Fuse Management Console running locally, the zookeeper.url System property should be set to the URL of the Fuse Fabric's Zookeeper instance which defaults to localhost:2181.  One can simply append the property like this to the startup comand line:
+On a typical developer machine, with Fuse Management Console running locally, the zookeeper.url System property should be set to the URL of the Fuse Fabric's Zookeeper instance, which defaults to localhost:2181.  One can simply append the property to the startup comand line like this:
 
 	-Dzookeeper.url=localhost:2181 
 	
-or add
+or add:
 
     <systemProperty>
         <key>zookeeper.url</key>
@@ -36,7 +36,7 @@ to the maven profile configuration, as is done in this project.
 Adding the fabric libraries
 ---------------------------
 
-These are the dependencies added to pom.xml to support the fabric discovery protocol:
+These are the dependencies added to the maven project to support the fabric discovery protocol (see the pom.xml for version info):
 
     <dependency>
         <groupId>org.fusesource.mq</groupId>
@@ -72,9 +72,9 @@ To build the example, execute the command:
 Running the example against a default fabric broker
 ---------------------------------------------------
 
-Make sure an instance of Fuse MQ message broker in the default group is running in fabric; if not, see below for instructions on deploying a default fabric-based broker. 
+Make sure a default instance of Fuse MQ message broker is running in the local fabric; if not, see below for instructions on how to deploy a default broker. 
 
-To start the default consumer open a shell, change to the project root and run the command:
+To start the default consumer, open a shell, change to the project root and run the command:
 
 	> mvn -e -P consumer-default
 
@@ -105,12 +105,12 @@ Here are some console messages you should see from the consumer when running the
 	...
 
 
-Running the example against a fabric-based network of fault-tolerant brokers
-----------------------------------------------------------------------------
+Running the example against a fabric-based network of brokers
+-------------------------------------------------------------
 
 Start a fabric-based network of fault-tolerant (master/slave) brokers.  For instructions on how to configure and deploy such a network, see the blog post [here](http://fusebyexample.blogspot.com/2012/06/using-fuse-management-console-and-fuse.html).   Summary instructions are also included below.
 
-This configuration features two broker groups networked together, mq-east and mq-west, each of which is comprised of a master/slave pair (four brokers total).  Consumers will connect to the active broker in the mq-west group; producers to the active broker in the mq-east group, insuring that messages flow across the network.  After the example is up and running, one can kill either or both of the active brokers and observe the continued operation of the broker network.
+This configuration features two broker groups networked together, named mq-east and mq-west, each of which is comprised of a master/slave pair (four brokers total).  Consumers will connect to the active broker in the mq-west group; producers to the active broker in the mq-east group, insuring that messages flow across the network.  After the example is up and running, one can kill either or both of the active brokers and observe continued message flow across the network.
 
 To start the consumer open a shell, change to the project root and run the command:
 
