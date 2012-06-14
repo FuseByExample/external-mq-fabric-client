@@ -21,7 +21,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<activemq.version>5.5.1.fuse-7-061</activemq.version>
 		<fabric.version>7.0.0.fuse-061</fabric.version>
-		<mq.fabric.version>7.0-SNAPSHOT</mq.fabric.version>
 		<slf4j.version>1.6.4</slf4j.version>
 	</properties>
 
@@ -34,8 +33,7 @@
 		<dependency>
 			<groupId>org.fusesource.mq</groupId>
 			<artifactId>mq-fabric</artifactId>
-			<!-- <version>${fabric.version}</version> -->
-			<version>${mq.fabric.version}</version>
+			<version>${fabric.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.fusesource.fabric</groupId>
