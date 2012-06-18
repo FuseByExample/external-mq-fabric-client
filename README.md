@@ -32,6 +32,10 @@ or add:
 
 to the maven profile configuration, as is done in this project.  
 
+When a distributed fabric registry is used (i.e. a Zookeeper ensemble) the zookeeper.url property should be set to a comma delimited list, like this:
+
+-Dzookeeper.url=london:2182,seattle:2181,portland:2181
+
 
 Adding the fabric libraries
 ---------------------------
