@@ -1,7 +1,7 @@
 External MQ-Fabric Client Demo
 ==============================
 
-This project shows how to connect to Fuse MQ message brokers running in Fuse Fabric from JMS clients running outside of Fuse Fabric (i.e. when the JMS client is not running within a managed Fuse ESB container).  
+This project shows how to connect to Fuse MQ message brokers running in Fuse Fabric from JMS clients running outside of Fuse Fabric (i.e. when the JMS client is not running within a Fabric-enabled Fuse ESB container).  
 
 This project reuses the classes and resources from Fuse By Example's "Getting Started with ActiveMQ" project to demonstrate the minimal changes necessary to discover and connect to Fuse MQ brokers deployed within Fuse Fabric.
 
