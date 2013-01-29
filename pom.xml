@@ -20,7 +20,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<activemq.version>5.5.1.fuse-7-061</activemq.version>
-		<fabric.version>7.0.0.fuse-061</fabric.version>
+		<fabric.version>7.1.0.fuse-047</fabric.version>
 		<slf4j.version>1.6.4</slf4j.version>
 	</properties>
 
@@ -61,6 +61,16 @@
 			<version>${slf4j.version}</version>
 			<scope>runtime</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <version>4.3.0</version>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -109,6 +119,18 @@
 											<key>zookeeper.url</key>
 											<value>localhost:2181</value>
 										</systemProperty>
+										<systemProperty>
+											<key>zookeeper.password</key>
+											<value>admin</value>
+										</systemProperty>
+										<systemProperty>
+											<key>broker.username</key>
+											<value>admin</value>
+										</systemProperty>
+										<systemProperty>
+											<key>broker.password</key>
+											<value>admin</value>
+										</systemProperty>
 									</systemProperties>
 								</configuration>
 							</execution>
@@ -137,6 +159,18 @@
 										<systemProperty>
 											<key>zookeeper.url</key>
 											<value>localhost:2181</value>
+										</systemProperty>
+										<systemProperty>
+											<key>zookeeper.password</key>
+											<value>admin</value>
+										</systemProperty>
+										<systemProperty>
+											<key>broker.username</key>
+											<value>admin</value>
+										</systemProperty>
+										<systemProperty>
+											<key>broker.password</key>
+											<value>admin</value>
 										</systemProperty>
 										<systemProperty>
 											<key>java.naming.provider.url</key>
@@ -171,6 +205,18 @@
 											<key>zookeeper.url</key>
 											<value>localhost:2181</value>
 										</systemProperty>
+										<systemProperty>
+											<key>zookeeper.password</key>
+											<value>admin</value>
+										</systemProperty>
+										<systemProperty>
+											<key>broker.username</key>
+											<value>admin</value>
+										</systemProperty>
+										<systemProperty>
+											<key>broker.password</key>
+											<value>admin</value>
+										</systemProperty>
 									</systemProperties>
 								</configuration>
 							</execution>
@@ -199,6 +245,18 @@
 										<systemProperty>
 											<key>zookeeper.url</key>
 											<value>localhost:2181</value>
+										</systemProperty>
+										<systemProperty>
+											<key>zookeeper.password</key>
+											<value>admin</value>
+										</systemProperty>
+										<systemProperty>
+											<key>broker.username</key>
+											<value>admin</value>
+										</systemProperty>
+										<systemProperty>
+											<key>broker.password</key>
+											<value>admin</value>
 										</systemProperty>
 										<systemProperty>
 											<key>java.naming.provider.url</key>

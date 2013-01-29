@@ -56,7 +56,10 @@ public class SimpleConsumer {
             ConnectionFactory factory = (ConnectionFactory) context.lookup(CONNECTION_FACTORY_NAME);
             Destination destination = (Destination) context.lookup(DESTINATION_NAME);
 
-            connection = factory.createConnection();
+            String username = System.getProperty("broker.username", "admin");
+            String password = System.getProperty("broker.password", "admin");
+
+            connection = factory.createConnection(username, password);
             connection.start();
 
             Session session = connection.createSession(NON_TRANSACTED, Session.AUTO_ACKNOWLEDGE);
