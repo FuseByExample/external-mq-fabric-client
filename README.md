@@ -190,9 +190,20 @@ complete description.
 
 * Execute the following four commands one at a time in the FMC terminal:
 
+  Note: the `profile-edit` commands add the username/password for the broker being connected to. That is, for the
+   "mq-east-broker" profile, the username and password of the mq-west-broker must be provided. In this example, since
+   everything is a child container, they will pickup the user.properties of the parent container, i.e. fmc, but if you
+   were networking to a different server with different user settings, you need to make specify those settings.
+
 ```
-    container-create-child FuseManagementConsole MQ-East 2
-    container-create-child FuseManagementConsole MQ-West 2
-    mq-create --group mq-east --networks mq-west --assign-container MQ-East1,MQ-East2 mq-east-broker
-    mq-create --group mq-west --networks mq-east --assign-container MQ-West1,MQ-West2 mq-west-broker
+    mq-create --group mq-east --networks mq-west mq-east-broker
+    profile-edit -p org.fusesource.mq.fabric.server-mq-east-broker/network.userName=admin mq-east-broker
+    profile-edit -p org.fusesource.mq.fabric.server-mq-east-broker/network.password=admin mq-east-broker
+
+    mq-create --group mq-west --networks mq-east mq-west-broker
+    profile-edit -p org.fusesource.mq.fabric.server-mq-west-broker/network.userName=admin mq-west-broker
+    profile-edit -p org.fusesource.mq.fabric.server-mq-west-broker/network.password=admin mq-west-broker
+
+    container-create-child --profile mq-east-broker FuseManagementConsole MQ-East 2
+    container-create-child --profile mq-west-broker FuseManagementConsole MQ-West 2
 ```
