@@ -1,11 +1,11 @@
 External MQ-Fabric Client Demo
 ==============================
 
-This project shows how to connect to Fuse MQ message brokers running in Fuse Fabric from JMS clients running outside of
+This project shows how to connect to JBoss A-MQ message brokers running in Fuse Fabric from JMS clients running outside of
 Fuse Fabric (i.e. when the JMS client is not running within a Fabric-enabled Fuse ESB container).
 
 This project reuses the classes and resources from Fuse By Example's "Getting Started with ActiveMQ" project to
-demonstrate the minimal changes necessary to discover and connect to Fuse MQ brokers deployed within Fuse Fabric.
+demonstrate the minimal changes necessary to discover and connect to JBoss A-MQ brokers deployed within Fuse Fabric.
 
 The Getting Started with ActiveMQ project uses broker URL's like this:
 
@@ -78,7 +78,7 @@ To build the example, execute the command:
 Running the example against a default fabric broker
 -------------------------------------------------------------------
 
-Make sure a default instance of Fuse MQ message broker is running in the local fabric; if not, see below for
+Make sure a default instance of JBoss A-MQ message broker is running in the local fabric; if not, see below for
 instructions on how to deploy a default broker.
 
 To start the default consumer, open a shell, change to the project root and run the command:
@@ -92,7 +92,7 @@ After the consumer is running, open another shell, change to the project root an
 Here are some console messages you should see from the consumer when running the example:
 
 	******************************
-	Connecting to Fuse MQ Broker using URL: discovery:(fabric:default)
+	Connecting to JBoss A-MQ Broker using URL: discovery:(fabric:default)
 	******************************
 	Using local ZKClient
 	Client environment:zookeeper.version=3.4.3-1240972...
@@ -115,8 +115,7 @@ Running the example against a fabric-based network of brokers
 -------------------------------------------------------------
 
 Start a fabric-based network of fault-tolerant (master/slave) brokers. For instructions on how to configure and deploy
-such a network, see the blog post [here](http://fusebyexample.blogspot.com/2012/06/using-fuse-management-console-and-fuse.html).
-Summary instructions are also included below.
+such a network, see the [fabric-ha-setup.md](https://github.com/FuseByExample/external-mq-fabric-client/blob/master/fabric-ha-setup.md).
 
 This configuration features two broker groups networked together, named "mq-east" and "mq-west", each of which is
 comprised of a master/slave pair (four brokers total). Consumers will connect to the active broker in the "mq-west"
@@ -157,53 +156,3 @@ watch the producer failover, reconnect and resume sending messages, with console
 
 then kill the container MQ-West1 and observe similar failover and reconnection by the consumer.
 
-Deploying a default Fuse MQ message broker in fabric 
-----------------------------------------------------------------------
-
-Here are brief instructions on how to deploy a default instance of Fuse MQ  message broker in fabric:
-
-* Launch Fuse Management Console (FMC), e.g. `bin/fmc`. FMC info and downloads are
-[here](http://fusesource.com/products/fuse-management-console)
-	* Note: with a clean install of FMC, you will need to edit the `etc/users.properties` to  include an *admin* userid
-	with password *admin* and role *admin*. The entry should look like `admin=admin,admin`.
-
-* Connect to FMC in a browser (e.g. http://localhost:8107), create a fabric if one does not yet exist using the
-following credentials, and then login (you may need to provide Username/Password you just entered).
-	* Username = *admin*
-	* Password = *admin*
-	* ZooKeeper Password = *admin*
-
-* Click the “Create Fuse Container” button, name the container MQ (the name is not critical), click Next, select the
-“mq” profile, click Next, select “Child container”, click Next, select “FuseManagementConsole” as the parent, and click
-Finish. The broker instance will be registered in fabric in the default group.
-
-Deploying a fabric-based network of fault-tolerant message brokers
---------------------------------------------------------------------------------------
-
-Here are brief instructions on deploying a fabric-based network of fault-tolerant (master/slave) message brokers. See
-the blog post [here](http://fusebyexample.blogspot.com/2012/06/using-fuse-management-console-and-fuse.html) for a more
-complete description.
-
-* Launch Fuse Management Console (FMC). 
-
-* Connect to FMC in a browser, create a fabric if one does not yet exist and login using *admin* | *admin* credentials.
-
-* Execute the following four commands one at a time in the FMC terminal:
-
-  Note: the `profile-edit` commands add the username/password for the broker being connected to. That is, for the
-   "mq-east-broker" profile, the username and password of the mq-west-broker must be provided. In this example, since
-   everything is a child container, they will pickup the user.properties of the parent container, i.e. fmc, but if you
-   were networking to a different server with different user settings, you need to make specify those settings.
-
-```
-    mq-create --group mq-east --networks mq-west mq-east-broker
-    profile-edit -p org.fusesource.mq.fabric.server-mq-east-broker/network.userName=admin mq-east-broker
-    profile-edit -p org.fusesource.mq.fabric.server-mq-east-broker/network.password=admin mq-east-broker
-
-    mq-create --group mq-west --networks mq-east mq-west-broker
-    profile-edit -p org.fusesource.mq.fabric.server-mq-west-broker/network.userName=admin mq-west-broker
-    profile-edit -p org.fusesource.mq.fabric.server-mq-west-broker/network.password=admin mq-west-broker
-
-    container-create-child --profile mq-east-broker FuseManagementConsole MQ-East 2
-    container-create-child --profile mq-west-broker FuseManagementConsole MQ-West 2
-```
