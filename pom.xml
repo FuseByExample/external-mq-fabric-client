@@ -126,48 +126,6 @@
     </build>
 
     <profiles>
-
-        <profile>
-            <id>consumer-default</id>
-            <build>
-                <defaultGoal>package</defaultGoal>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>java</goal>
-                                </goals>
-                                <configuration>
-                                    <mainClass>com.fusesource.examples.activemq.SimpleConsumer</mainClass>
-                                    <systemProperties>
-                                        <systemProperty>
-                                            <key>zookeeper.url</key>
-                                            <value>${zookeeper.url}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>zookeeper.password</key>
-                                            <value>${zookeeper.password}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>broker.username</key>
-                                            <value>${broker.username}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>broker.password</key>
-                                            <value>${broker.password}</value>
-                                        </systemProperty>
-                                    </systemProperties>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>consumer-west</id>
             <build>
@@ -204,47 +162,6 @@
                                         <systemProperty>
                                             <key>java.naming.provider.url</key>
                                             <value>discovery:(fabric:mq-west)</value>
-                                        </systemProperty>
-                                    </systemProperties>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>producer-default</id>
-            <build>
-                <defaultGoal>package</defaultGoal>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>java</goal>
-                                </goals>
-                                <configuration>
-                                    <mainClass>com.fusesource.examples.activemq.SimpleProducer</mainClass>
-                                    <systemProperties>
-                                        <systemProperty>
-                                            <key>zookeeper.url</key>
-                                            <value>${zookeeper.url}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>zookeeper.password</key>
-                                            <value>${zookeeper.password}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>broker.username</key>
-                                            <value>${broker.username}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>broker.password</key>
-                                            <value>${broker.password}</value>
                                         </systemProperty>
                                     </systemProperties>
                                 </configuration>

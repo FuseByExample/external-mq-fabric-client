@@ -4,9 +4,6 @@ External MQ-Fabric Client Demo
 This project shows how to connect to JBoss A-MQ message brokers running in Fuse Fabric from JMS clients running outside of
 Fuse Fabric (i.e. when the JMS client is not running within a Fabric-enabled Fuse ESB container).
 
-This project reuses the classes and resources from Fuse By Example's "Getting Started with ActiveMQ" project to
-demonstrate the minimal changes necessary to discover and connect to JBoss A-MQ brokers deployed within Fuse Fabric.
-
 The Getting Started with ActiveMQ project uses broker URL's like this:
 
     failover:(tcp://host1:port1,tcp://host2:port2)
@@ -46,9 +43,9 @@ These are the dependencies added to the maven project to support the fabric disc
 version info):
 
     <dependency>
-        <groupId>org.fusesource.mq</groupId>
+        <groupId>org.jboss.amq</groupId>
         <artifactId>mq-fabric</artifactId>
-        <version>${fabric.version}</version>
+        <version>${amq.version}</version>
     </dependency>
     <dependency>
         <groupId>org.fusesource.fabric</groupId>
@@ -75,52 +72,21 @@ To build the example, execute the command:
 	> mvn clean install
 
 
-Running the example against a default fabric broker
--------------------------------------------------------------------
-
-Make sure a default instance of JBoss A-MQ message broker is running in the local fabric; if not, see below for
-instructions on how to deploy a default broker.
-
-To start the default consumer, open a shell, change to the project root and run the command:
-
-	> mvn -e -P consumer-default
-
-After the consumer is running, open another shell, change to the project root and run the command:
-
-	> mvn -e -P producer-default
-
-Here are some console messages you should see from the consumer when running the example:
-
-	******************************
-	Connecting to JBoss A-MQ Broker using URL: discovery:(fabric:default)
-	******************************
-	Using local ZKClient
-	Client environment:zookeeper.version=3.4.3-1240972...
-	...
-	Initiating client connection, connectString=localhost:2181 sessionTimeout=10000 watcher=org.linkedin.zookeeper.client.ZKClient@12133926
-	Opening socket connection to server /0:0:0:0:0:0:0:1:2181
-	...
-	Socket connection established to localhost/0:0:0:0:0:0:0:1:2181, initiating session
-	Session establishment complete on server localhost/0:0:0:0:0:0:0:1:2181, sessionid = 0x137bcd28a79000b, negotiated timeout = 10000
-	Starting StateChangeDispatcher
-	Adding new broker connection URL: tcp://mbrooks1.local:50865
-	Successfully connected to tcp://mbrooks1.local:50865
-	Start consuming messages from queue://fabric.simple with 120000ms timeout
-	Got 1. message: 1. message sent
-	Got 2. message: 2. message sent
-	Got 3. message: 3. message sent
-	...
-
 Running the example against a fabric-based network of brokers
 -------------------------------------------------------------
 
-Start a fabric-based network of fault-tolerant (master/slave) brokers. For instructions on how to configure and deploy
-such a network, see the [fabric-ha-setup.md](https://github.com/FuseByExample/external-mq-fabric-client/blob/master/fabric-ha-setup.md).
+Start a fabric-based network of fault-tolerant (master/slave) brokers.
+For instructions on how to configure and deploy such a network, see
+the
+[fabric-ha-setup.md](https://github.com/FuseByExample/external-mq-fabric-client/blob/master/fabric-ha-setup.md).
 
-This configuration features two broker groups networked together, named "mq-east" and "mq-west", each of which is
-comprised of a master/slave pair (four brokers total). Consumers will connect to the active broker in the "mq-west"
-group; producers to the active broker in the "mq-east" group, insuring that messages flow across the network. After the
-example is up and running, one can kill either or both of the active brokers and observe continued message flow across
+This configuration features two broker groups networked together,
+named "mq-east" and "mq-west", each of which is comprised of a
+master/slave pair (four brokers total). Consumers will connect to the
+active broker in the "mq-west" group; producers to the active broker
+in the "mq-east" group, insuring that messages flow across the
+network. After the example is up and running, one can kill either or
+both of the active brokers and observe continued message flow across
 the network.
 
 To start the consumer open a shell, change to the project root and run the command:

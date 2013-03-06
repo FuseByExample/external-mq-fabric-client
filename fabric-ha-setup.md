@@ -1,13 +1,19 @@
 # Deploying Complex JBoss A-MQ Networks
 
 This document provides details on how to configure and deploy a network
-of JBoss A-MQ master/slave networked brokers.  We will use the Fuse Management Console (FMC) to simplify configuring and deploying the configuration to multiple broker JVMs.
+of JBoss A-MQ master/slave networked brokers.  We will use the Fuse 
+Management Console (FMC) to simplify configuring and deploying the 
+configuration to multiple broker JVMs.
 
 Download and unpack a JBoss A-MQ distribution if you haven't already.
 Launch A-MQ by running `bin/a-mq` or `bin\a-mq.bat`. You should see a
-terminal session. Install the FMC by running: `fabric:create -p fmc`.
+terminal session. Install the FMC by running: 
+
+    fabric:create -p fmc
+
 It will prompt you to create an admin user if you had not already
-defined one in `etc/users.properties`.  The rest of this document will assume you have set the user/password combination to admin/admin.
+defined one in `etc/users.properties`.  The rest of this document 
+will assume you have set the user/password combination to admin/admin.
 
 Keep the terminal session running, and connect to
 `http://localhost:8181/index.html` in a web browser. Once connected
@@ -60,6 +66,8 @@ with a master/slave broker pair identified with the group name
 At this point, our network of brokers -- four instances of JBoss A-MQ, each running in its own container, networked together and with failover -- is up and running!
 
 To verify if everything is working properly lets test running some messages over the new deployment.  We can use the mq-client.jar that's used to verify a standalone server.
+
+<!-- NOTE: You need an jbos-a-amq more recent than the 012 build for the following to work. -->
 
 First lets start a consumer running against a broker running in the 'mq-west' group:
 
