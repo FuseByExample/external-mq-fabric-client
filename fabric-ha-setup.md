@@ -49,13 +49,13 @@ Execute this command (all on one line) to provision the East containers
 with a master/slave broker pair identified with the group name
 "mq-east", and networked to the mq-west brokers:
 
-    mq-create --group mq-east --networks mq-west --networks-username admin -networks-password admin --assign-container MQ-East1,MQ-East2 mq-east-broker
+    mq-create --group mq-east --networks mq-west --networks-username admin --networks-password admin --assign-container MQ-East1,MQ-East2 mq-east-broker
 
 Execute this command (all on one line) to provision the West containers
 with a master/slave broker pair identified with the group name
 "mq-west", and networked to the mq-east brokers:
 
-    mq-create --group mq-west --networks mq-east --networks-username admin -networks-password admin --assign-container MQ-West1,MQ-West2 mq-west-broker
+    mq-create --group mq-west --networks mq-east --networks-username admin --networks-password admin --assign-container MQ-West1,MQ-West2 mq-west-broker
 
 At this point, our network of brokers -- four instances of JBoss A-MQ, each running in its own container, networked together and with failover -- is up and running!
 
