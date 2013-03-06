@@ -105,6 +105,11 @@ and the consumer connected using the URL:
 
 	discovery:(fabric:mq-west)
 	
+<!-- 
+  One way to figure out which container is currently the master is to inspect the logs:
+  cat instances/MQ-East1/data/log/karaf.log | grep mq-fabric
+-->
+
 After the example is up and running and you see JMS messages being logged to the consumer's console, kill the broker
 running in the container MQ-East1 (you can stop the container using FMC, or kill the container's process in the OS) and
 watch the producer failover, reconnect and resume sending messages, with console output like this:
