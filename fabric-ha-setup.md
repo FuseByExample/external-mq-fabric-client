@@ -67,13 +67,23 @@ At this point, our network of brokers -- four instances of JBoss A-MQ, each runn
 
 To verify if everything is working properly lets test running some messages over the new deployment.  We can use the mq-client.jar that's used to verify a standalone server.
 
-<!-- NOTE: You need an jbos-a-amq more recent than the 012 build for the following to work. -->
+<!-- NOTE: You need an jbos-a-amq more recent than the 014 build for the following to work. -->
+
+You can use the `cluster-list` command to see the status of the cluster and find out which containers were elected to be the masters and which are assigned to the slaves.  Example:
+
+    JBossA-MQ:karaf@root> cluster-list 
+    [cluster]                      [masters]                      [slaves]                       [services]
+    stats/default                                                                                
+    fusemq/mq-east                                                                               
+       mq-east-broker              MQ-East2                       MQ-East1                       tcp://chirino-retina.chirino:62184
+    fusemq/mq-west                                                                               
+       mq-west-broker              MQ-West2                       MQ-West1                       tcp://chirino-retina.chirino:62215
 
 First lets start a consumer running against a broker running in the 'mq-west' group:
 
-    java -jar lib/mq-client.jar consumer --user admin --password admin --brokerUrl 'discovery:(fabric:mq-west)'
+    java -jar extras/mq-client.jar consumer --user admin --password admin --brokerUrl 'discovery:(fabric:mq-west)'
 
 Then lets start a producer running against a broker running in the 'mq-east' group:
 
-java -jar lib/mq-client.jar producer --user admin --password admin --brokerUrl 'discovery:(fabric:mq-east)'
+java -jar extras/mq-client.jar producer --user admin --password admin --brokerUrl 'discovery:(fabric:mq-east)'
 

@@ -106,24 +106,35 @@ and the consumer connected using the URL:
 	discovery:(fabric:mq-west)
 	
 <!-- 
-  One way to figure out which container is currently the master is to inspect the logs:
+  Another way to figure out which container is currently the master is to inspect the logs:
   cat instances/MQ-East1/data/log/karaf.log | grep mq-fabric
 -->
 
-After the example is up and running and you see JMS messages being logged to the consumer's console, kill the broker
-running in the container MQ-East1 (you can stop the container using FMC, or kill the container's process in the OS) and
-watch the producer failover, reconnect and resume sending messages, with console output like this:
+After the example is up and running and you see JMS messages being logged to the
+consumer's console, kill the master broker on the east.  You can use the `cluster-list` command in the karaf to find out which container is currently teh master.  For example:
 
-	...
-	Sending to destination: queue://fabric.simple this text: '23. message sent
-	Sending to destination: queue://fabric.simple this text: '24. message sent
-	Sending to destination: queue://fabric.simple this text: '25. message sent
-	WARN  Transport (tcp://192.168.0.14:51779) failed, reason:  java.io.EOFException, attempting to automatically reconnect
-	Adding new broker connection URL: tcp://mbrooks1.local:51805
-	Successfully reconnected to tcp://mbrooks1.local:51805
-	Sending to destination: queue://fabric.simple this text: '26. message sent
-	Sending to destination: queue://fabric.simple this text: '27. message sent
-	...
+    JBossA-MQ:karaf@root> cluster-list 
+    [cluster]                      [masters]                      [slaves]                       [services]
+    stats/default                                                                                
+    fusemq/mq-east                                                                               
+       mq-east-broker              MQ-East2                       MQ-East1                       tcp://chirino-retina.chirino:62184
+    fusemq/mq-west                                                                               
+       mq-west-broker              MQ-West2                       MQ-West1                       tcp://chirino-retina.chirino:62215
 
-then kill the container MQ-West1 and observe similar failover and reconnection by the consumer.
+You can stop the master east container using FMC, or kill the container's process
+in the OS) and watch the producer failover, reconnect and resume sending
+messages, with console output like this:
+
+    ...
+    Sending to destination: queue://fabric.simple this text: '23. message sent
+    Sending to destination: queue://fabric.simple this text: '24. message sent
+    Sending to destination: queue://fabric.simple this text: '25. message sent
+    WARN  Transport (tcp://192.168.0.14:51779) failed, reason:  java.io.EOFException, attempting to automatically reconnect
+    Adding new broker connection URL: tcp://mbrooks1.local:51805
+    Successfully reconnected to tcp://mbrooks1.local:51805
+    Sending to destination: queue://fabric.simple this text: '26. message sent
+    Sending to destination: queue://fabric.simple this text: '27. message sent
+    ...
+
+Then kill the container host the west container and observe similar failover and reconnection by the consumer.
 
