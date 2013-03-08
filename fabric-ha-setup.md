@@ -85,5 +85,5 @@ First lets start a consumer running against a broker running in the 'mq-west' gr
 
 Then lets start a producer running against a broker running in the 'mq-east' group:
 
-java -jar extras/mq-client.jar producer --user admin --password admin --brokerUrl 'discovery:(fabric:mq-east)'
+    java -jar extras/mq-client.jar producer --user admin --password admin --brokerUrl 'discovery:(fabric:mq-east)'
 
