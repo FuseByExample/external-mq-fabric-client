@@ -111,7 +111,7 @@ and the consumer connected using the URL:
 -->
 
 After the example is up and running and you see JMS messages being logged to the
-consumer's console, kill the master broker on the east.  You can use the `cluster-list` command in the karaf to find out which container is currently teh master.  For example:
+consumer's console, kill the master broker on the east.  You can use the `cluster-list` command in the karaf to find out which container is currently the master.  For example:
 
     JBossA-MQ:karaf@root> cluster-list 
     [cluster]                      [masters]                      [slaves]                       [services]
