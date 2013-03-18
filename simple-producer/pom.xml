@@ -37,7 +37,7 @@
             <artifactId>activemq-client</artifactId>
         </dependency>
 
-        <!-- Add Fuse Fabric support -->
+        <!-- Add mq-fabric support -->
         <dependency>
             <groupId>org.jboss.amq</groupId>
             <artifactId>mq-fabric</artifactId>
@@ -84,6 +84,13 @@
             <artifactId>log4j</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -103,18 +110,6 @@
                         <systemProperty>
                             <key>zookeeper.password</key>
                             <value>${zookeeper.password}</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <key>broker.username</key>
-                            <value>${broker.username}</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <key>broker.password</key>
-                            <value>${broker.password}</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <key>java.naming.provider.url</key>
-                            <value>discovery:(fabric:mq-east)</value>
                         </systemProperty>
                     </systemProperties>
                 </configuration>

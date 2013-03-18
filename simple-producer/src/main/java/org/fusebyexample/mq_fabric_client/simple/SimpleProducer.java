@@ -39,7 +39,7 @@ public class SimpleProducer {
         final String brokerUrl = System.getProperty("java.naming.provider.url", DEFAULT_BROKER_URL);
 
         LOG.info("******************************");
-        LOG.info("Connecting to Fuse MQ Broker using URL: {}", brokerUrl);
+        LOG.info("Connecting to JBoss A-MQ Broker using URL: {}", brokerUrl);
         LOG.info("******************************");
 
         Connection connection = null;
@@ -50,10 +50,7 @@ public class SimpleProducer {
             ConnectionFactory factory = (ConnectionFactory) context.lookup(CONNECTION_FACTORY_NAME);
             Destination destination = (Destination) context.lookup(DESTINATION_NAME);
 
-            String username = System.getProperty("broker.username", "admin");
-            String password = System.getProperty("broker.password", "admin");
-
-            connection = factory.createConnection(username, password);
+            connection = factory.createConnection();
             connection.start();
 
             Session session = connection.createSession(NON_TRANSACTED, Session.AUTO_ACKNOWLEDGE);

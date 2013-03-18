@@ -48,10 +48,7 @@ public class SimpleConsumer {
             ConnectionFactory factory = (ConnectionFactory) context.lookup(CONNECTION_FACTORY_NAME);
             Destination destination = (Destination) context.lookup(DESTINATION_NAME);
 
-            String username = System.getProperty("broker.username", "admin");
-            String password = System.getProperty("broker.password", "admin");
-
-            connection = factory.createConnection(username, password);
+            connection = factory.createConnection();
             connection.start();
 
             Session session = connection.createSession(NON_TRANSACTED, Session.AUTO_ACKNOWLEDGE);
@@ -76,7 +73,7 @@ public class SimpleConsumer {
             consumer.close();
             session.close();
         } catch (Throwable t) {
-            LOG.error("Error in Simple Consumer", t);
+            LOG.error("Error receiving message", t);
         } finally {
             // Cleanup code
             // In general, you should always close producers, consumers,

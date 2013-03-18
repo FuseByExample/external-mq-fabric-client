@@ -27,14 +27,24 @@
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>simple-consumer</artifactId>
+    <artifactId>camel-producer</artifactId>
+    <packaging>bundle</packaging>
 
-    <name>MQ-Fabric Client Example :: Simple Consumer</name>
+    <name>MQ-Fabric Client Example :: Camel Producer</name>
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-client</artifactId>
+            <artifactId>activemq-camel</artifactId>
         </dependency>
 
         <!-- Add mq-fabric support -->
@@ -87,6 +97,16 @@
 
         <!-- Testing -->
         <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test-spring</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -98,21 +118,14 @@
 
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>org.fusebyexample.mq_fabric_client.simple.SimpleConsumer</mainClass>
-                    <systemProperties>
-                        <systemProperty>
-                            <key>zookeeper.url</key>
-                            <value>${zookeeper.url}</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <key>zookeeper.password</key>
-                            <value>${zookeeper.password}</value>
-                        </systemProperty>
-                    </systemProperties>
-                </configuration>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-maven-plugin</artifactId>
+                <version>${camel.version}</version>
             </plugin>
         </plugins>
     </build>

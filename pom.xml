@@ -31,31 +31,50 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <activemq.version>5.8.0.redhat-60015</activemq.version>
+        <camel.version>2.10.0.redhat-60015</camel.version>
         <amq.version>6.0.0.redhat-015</amq.version>
         <fabric.version>7.2.0.redhat-015</fabric.version>
+        <osgi.version>4.3.0</osgi.version>
         <slf4j.version>1.6.6</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
+        <junit.version>4.11</junit.version>
 
         <zookeeper.url>localhost:2181</zookeeper.url>
         <zookeeper.password>admin</zookeeper.password>
-        <broker.username>admin</broker.username>
-        <broker.password>admin</broker.password>
     </properties>
 
     <modules>
         <module>simple-consumer</module>
         <module>simple-producer</module>
+        <module>camel-consumer</module>
+        <module>camel-producer</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-core</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-spring</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-camel</artifactId>
+                <version>${activemq.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-client</artifactId>
                 <version>${activemq.version}</version>
             </dependency>
 
-            <!-- Add Fuse Fabric support -->
+            <!-- Add mq-fabric support -->
             <dependency>
                 <groupId>org.jboss.amq</groupId>
                 <artifactId>mq-fabric</artifactId>
@@ -79,12 +98,12 @@
             <dependency>
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.core</artifactId>
-                <version>4.3.0</version>
+                <version>${osgi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.compendium</artifactId>
-                <version>4.3.0</version>
+                <version>${osgi.version}</version>
             </dependency>
 
             <!-- Logging -->
@@ -97,13 +116,28 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j.version}</version>
-                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
-                <scope>runtime</scope>
+            </dependency>
+
+            <!-- Testing -->
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-test</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-test-spring</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -111,6 +145,11 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>2.3.7</version>
+                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
