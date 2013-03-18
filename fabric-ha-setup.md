@@ -1,7 +1,7 @@
 # Deploying Complex JBoss A-MQ Networks
 
 This document provides details on how to configure and deploy a network
-of JBoss A-MQ master/slave networked brokers.  We will use the Fuse 
+of JBoss A-MQ master/slave networked brokers. We will use the Fuse
 Management Console (FMC) to simplify configuring and deploying the 
 configuration to multiple broker JVMs.
 
@@ -12,7 +12,7 @@ terminal session. Install the FMC by running:
     fabric:create -p fmc
 
 It will prompt you to create an admin user if you had not already
-defined one in `etc/users.properties`.  The rest of this document 
+defined one in `etc/users.properties`. The rest of this document
 will assume you have set the user/password combination to admin/admin.
 
 Keep the terminal session running, and connect to
@@ -63,13 +63,19 @@ with a master/slave broker pair identified with the group name
 
     mq-create --group mq-west --networks mq-east --networks-username admin --networks-password admin --assign-container MQ-West1,MQ-West2 mq-west-broker
 
-At this point, our network of brokers -- four instances of JBoss A-MQ, each running in its own container, networked together and with failover -- is up and running!
+At this point, our network of brokers -- four instances of JBoss A-MQ, each
+running in its own container, networked together and with failover -- is up and]
+running!
 
-To verify if everything is working properly lets test running some messages over the new deployment.  We can use the mq-client.jar that's used to verify a standalone server.
+To verify if everything is working properly lets test running some messages over
+the new deployment. We can use the mq-client.jar that's used to verify a
+standalone server.
 
-<!-- NOTE: You need an jbos-a-amq more recent than the 014 build for the following to work. -->
+<!-- NOTE: You need an jboss-a-amq more recent than the 014 build for the following to work. -->
 
-You can use the `cluster-list` command to see the status of the cluster and find out which containers were elected to be the masters and which are assigned to the slaves.  Example:
+You can use the `cluster-list` command to see the status of the cluster and find
+out which containers were elected to be the masters and which are assigned to
+the slaves. Example:
 
     JBossA-MQ:karaf@root> cluster-list 
     [cluster]                      [masters]                      [slaves]                       [services]
@@ -86,4 +92,3 @@ First lets start a consumer running against a broker running in the 'mq-west' gr
 Then lets start a producer running against a broker running in the 'mq-east' group:
 
     java -jar extras/mq-client.jar producer --user admin --password admin --brokerUrl 'discovery:(fabric:mq-east)'
-

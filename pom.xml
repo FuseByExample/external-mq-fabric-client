@@ -1,6 +1,6 @@
 <!--
-  ~ Copyright (C) FuseSource, Inc.
-  ~ http://fusesource.com
+  ~ Copyright (C) Red Hat, Inc.
+  ~ http://www.redhat.com
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.fusesource.examples</groupId>
-    <artifactId>external-mq-fabric-client-demo</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <groupId>org.fusebyexample</groupId>
+    <artifactId>external-mq-fabric-client</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
 
     <name>External MQ-Fabric Client Demo</name>
 
@@ -141,7 +141,7 @@
                                     <goal>java</goal>
                                 </goals>
                                 <configuration>
-                                    <mainClass>com.fusesource.examples.activemq.SimpleConsumer</mainClass>
+                                    <mainClass>org.fusebyexample.external_mq_fabric_client.simple.SimpleConsumer</mainClass>
                                     <systemProperties>
                                         <systemProperty>
                                             <key>zookeeper.url</key>
@@ -186,7 +186,7 @@
                                     <goal>java</goal>
                                 </goals>
                                 <configuration>
-                                    <mainClass>com.fusesource.examples.activemq.SimpleProducer</mainClass>
+                                    <mainClass>org.fusebyexample.external_mq_fabric_client.simple.SimpleProducer</mainClass>
                                     <systemProperties>
                                         <systemProperty>
                                             <key>zookeeper.url</key>

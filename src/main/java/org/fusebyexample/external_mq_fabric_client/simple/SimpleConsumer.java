@@ -1,6 +1,6 @@
 /*
- * Copyright (C) FuseSource, Inc.
- * http://fusesource.com
+ * Copyright (C) Red Hat, Inc.
+ * http://www.redhat.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,41 +15,32 @@
  * limitations under the License.
  */
 
-package com.fusesource.examples.activemq;
+package org.fusebyexample.external_mq_fabric_client.simple;
 
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
+import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class SimpleProducer {
-	
-    private static final Log LOG = LogFactory.getLog(SimpleProducer.class);
+public class SimpleConsumer {
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleConsumer.class);
 
     private static final Boolean NON_TRANSACTED = false;
-    private static final long MESSAGE_TIME_TO_LIVE_MILLISECONDS = 0;
-    private static final int MESSAGE_DELAY_MILLISECONDS = 500;
-    private static final int NUM_MESSAGES_TO_BE_SENT = 1000;
     private static final String CONNECTION_FACTORY_NAME = "myJmsFactory";
     private static final String DESTINATION_NAME = "queue/simple";
+    private static final int MESSAGE_TIMEOUT_MILLISECONDS = 120000;
     private static final String DEFAULT_BROKER_URL = "discovery:(fabric:default)";
 
     public static void main(String args[]) {
-    	
-   	 	String brokerUrl = System.getProperty("java.naming.provider.url");
-        brokerUrl = brokerUrl != null ? brokerUrl : DEFAULT_BROKER_URL;
+        final String brokerUrl = System.getProperty("java.naming.provider.url",
+                DEFAULT_BROKER_URL);
+
         LOG.info("******************************");
-        LOG.info("Connecting to Fuse MQ Broker using URL: " + brokerUrl);
+        LOG.info("Connecting to JBoss A-MQ Broker using URL: {}", brokerUrl);
         LOG.info("******************************");
-    	
+
         Connection connection = null;
 
         try {
@@ -65,22 +56,30 @@ public class SimpleProducer {
             connection.start();
 
             Session session = connection.createSession(NON_TRANSACTED, Session.AUTO_ACKNOWLEDGE);
-            MessageProducer producer = session.createProducer(destination);
+            MessageConsumer consumer = session.createConsumer(destination);
 
-            producer.setTimeToLive(MESSAGE_TIME_TO_LIVE_MILLISECONDS);
+            LOG.info("Start consuming messages from {} with {}ms timeout",
+                    destination, MESSAGE_TIMEOUT_MILLISECONDS);
 
-            for (int i = 1; i <= NUM_MESSAGES_TO_BE_SENT; i++) {
-                TextMessage message = session.createTextMessage(i + ". message sent");
-                LOG.info("Sending to destination: " + destination.toString() + " this text: '" + message.getText());
-                producer.send(message);
-                Thread.sleep(MESSAGE_DELAY_MILLISECONDS);
+            // Synchronous message consumer
+            int i = 1;
+            while (true) {
+                Message message = consumer.receive(MESSAGE_TIMEOUT_MILLISECONDS);
+                if (message != null) {
+                    i++;
+                    if (message instanceof TextMessage) {
+                        String text = ((TextMessage) message).getText();
+                        LOG.info("Got {}. message: {}", i, text);
+                    }
+                } else {
+                    break;
+                }
             }
 
-            // Cleanup
-            producer.close();
+            consumer.close();
             session.close();
         } catch (Throwable t) {
-            LOG.error(t);
+            LOG.error("Error in Simple Consumer", t);
         } finally {
             // Cleanup code
             // In general, you should always close producers, consumers,
@@ -91,7 +90,7 @@ public class SimpleProducer {
                 try {
                     connection.close();
                 } catch (JMSException e) {
-                    LOG.error(e);
+                    LOG.error("Error closing connection", e);
                 }
             }
         }
