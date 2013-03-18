@@ -12,21 +12,11 @@ To build the example, execute the command:
 
 	> mvn clean install
 
-Running the example against a fabric-based network of brokers
--------------------------------------------------------------
+Running the example
+-------------------
 
-Start a fabric-based network of fault-tolerant (master/slave) brokers.
-For instructions on how to configure and deploy such a network, see the
+Assumes you have setup a fabric-based network of brokers per the instructions in
 [fabric-ha-setup.md](https://github.com/FuseByExample/external-mq-fabric-client/blob/master/fabric-ha-setup.md).
-
-This configuration features two broker groups networked together,
-named "mq-east" and "mq-west", each of which is comprised of a
-master/slave pair (four brokers total). Consumers will connect to the
-active broker in the "mq-west" group; producers to the active broker
-in the "mq-east" group, insuring that messages flow across the
-network. After the example is up and running, one can kill either or
-both of the active brokers and observe continued message flow across
-the network.
 
 Run this command:
 

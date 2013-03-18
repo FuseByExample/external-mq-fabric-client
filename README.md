@@ -78,6 +78,22 @@ discovery protocol (see the `pom.xml` for version info):
         <version>${osgi.version}</version>
     </dependency>
 
+Setup the examples against a fabric-based network of brokers
+-------------------------------------------------------------
+
+Start a fabric-based network of fault-tolerant (master/slave) brokers.
+For instructions on how to configure and deploy such a network, see the
+[fabric-ha-setup.md](https://github.com/FuseByExample/external-mq-fabric-client/blob/master/fabric-ha-setup.md).
+
+This configuration features two broker groups networked together,
+named "mq-east" and "mq-west", each of which is comprised of a
+master/slave pair (four brokers total). Consumers will connect to the
+active broker in the "mq-west" group; producers to the active broker
+in the "mq-east" group, insuring that messages flow across the
+network. After the example is up and running, one can kill either or
+both of the active brokers and observe continued message flow across
+the network.
+
 Running the examples
 --------------------
 

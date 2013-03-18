@@ -5,28 +5,18 @@ This project shows how to connect to JBoss A-MQ message brokers running in Fuse
 Fabric from a Camel client running outside of Fuse Fabric (i.e. when the JMS
 client is not running within a Fabric-enabled JBoss Fuse ESB container).
 
-Building the examples
----------------------
+Building the example
+--------------------
 
 To build the example, execute the command: 
 
 	> mvn clean install
 
-Running the example against a fabric-based network of brokers
--------------------------------------------------------------
+Running the example
+-------------------
 
-Start a fabric-based network of fault-tolerant (master/slave) brokers.
-For instructions on how to configure and deploy such a network, see the
+Assumes you have setup a fabric-based network of brokers per the instructions in
 [fabric-ha-setup.md](https://github.com/FuseByExample/external-mq-fabric-client/blob/master/fabric-ha-setup.md).
-
-This configuration features two broker groups networked together,
-named "mq-east" and "mq-west", each of which is comprised of a
-master/slave pair (four brokers total). Consumers will connect to the
-active broker in the "mq-west" group; producers to the active broker
-in the "mq-east" group, insuring that messages flow across the
-network. After the example is up and running, one can kill either or
-both of the active brokers and observe continued message flow across
-the network.
 
 Run this command:
 
@@ -70,3 +60,17 @@ messages, with console output like this:
     Got 26. message: 26. message sent
     Got 27. message: 27. message sent
     ...
+
+Deploying the example in JBoss Fuse
+-----------------------------------
+
+In the JBoss Fuse console where you initially created the fabric, run the
+following commands to create a `example-camel-consumer` profile, and deploy
+it to a `Consumer` container.
+
+    profile-create --parents activemq-client example-camel-consumer
+    profile-edit --repositories mvn:org.apache.camel.karaf/apache-camel/2.10.0.redhat-60015/xml/features example-camel-consumer
+    profile-edit --features activemq,activemq-camel,camel-spring example-camel-consumer
+    profile-edit --bundles mvn:org.fusebyexample.mq-fabric/camel-consumer/2.0.0-SNAPSHOT example-camel-consumer
+    container-create-child --profile example-camel-consumer root Consumer
+

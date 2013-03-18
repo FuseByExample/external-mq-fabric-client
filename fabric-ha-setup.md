@@ -1,13 +1,13 @@
-Deploying Complex JBoss A-MQ Networks
-=====================================
+Deploying Complex ActiveMQ Networks
+===================================
 
 This document provides details on how to configure and deploy a network
-of JBoss A-MQ master/slave networked brokers. We will use the Fuse
+of ActiveMQ master/slave networked brokers. We will use the Fuse
 Management Console (FMC) to simplify configuring and deploying the 
 configuration to multiple broker JVMs.
 
-Download and unpack a JBoss A-MQ distribution if you haven't already.
-Launch JBoss A-MQ by running `bin/a-mq` or `bin\a-mq.bat`. You should see a
+Download and unpack a JBoss Fuse distribution if you haven't already.
+Launch JBoss Fuse by running `bin/fuse` or `bin\fuse.bat`. You should see a
 terminal session. Install the FMC by running: 
 
     fabric:create -p fmc
@@ -64,7 +64,7 @@ with a master/slave broker pair identified with the group name
 
     mq-create --group mq-west --networks mq-east --networks-username admin --networks-password admin --assign-container MQ-West1,MQ-West2 mq-west-broker
 
-At this point, our network of brokers -- four instances of JBoss A-MQ, each
+At this point, our network of brokers -- four instances of ActiveMQ, each
 running in its own container, networked together and with failover -- is up and]
 running!
 
@@ -72,13 +72,13 @@ To verify if everything is working properly lets test running some messages over
 the new deployment. We can use the mq-client.jar that's used to verify a
 standalone server.
 
-<!-- NOTE: You need an jboss-a-amq more recent than the 014 build for the following to work. -->
+<!-- NOTE: You need an jboss-fuse more recent than the 015 build for the following to work. -->
 
 You can use the `cluster-list` command to see the status of the cluster and find
 out which containers were elected to be the masters and which are assigned to
 the slaves. Example:
 
-    JBossA-MQ:karaf@root> cluster-list 
+    JBossFuse:karaf@root> cluster-list
     [cluster]                      [masters]                      [slaves]                       [services]
     stats/default                                                                                
     fusemq/mq-east                                                                               
