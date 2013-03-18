@@ -67,6 +67,16 @@ discovery protocol (see the `pom.xml` for version info):
         <artifactId>fabric-linkedin-zookeeper</artifactId>
         <version>${fabric.version}</version>
     </dependency>
+    <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.core</artifactId>
+        <version>${osgi.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.compendium</artifactId>
+        <version>${osgi.version}</version>
+    </dependency>
 
 Running the examples
 --------------------
@@ -75,3 +85,4 @@ Follow the instructions in the various consumer and producer paired example
 modules
 
 * simple-consumer and simple-producer
+* camel-consumer and camel-producer
