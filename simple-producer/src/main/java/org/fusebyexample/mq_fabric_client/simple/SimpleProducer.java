@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.fusebyexample.external_mq_fabric_client.simple;
+package org.fusebyexample.mq_fabric_client.simple;
 
 import javax.jms.*;
 import javax.naming.Context;
@@ -24,21 +24,22 @@ import javax.naming.InitialContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SimpleConsumer {
-    private static final Logger LOG = LoggerFactory.getLogger(SimpleConsumer.class);
+public class SimpleProducer {
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleProducer.class);
 
     private static final Boolean NON_TRANSACTED = false;
+    private static final long MESSAGE_TIME_TO_LIVE_MILLISECONDS = 0;
+    private static final int MESSAGE_DELAY_MILLISECONDS = 500;
+    private static final int NUM_MESSAGES_TO_BE_SENT = 1000;
     private static final String CONNECTION_FACTORY_NAME = "myJmsFactory";
     private static final String DESTINATION_NAME = "queue/simple";
-    private static final int MESSAGE_TIMEOUT_MILLISECONDS = 120000;
     private static final String DEFAULT_BROKER_URL = "discovery:(fabric:default)";
 
     public static void main(String args[]) {
-        final String brokerUrl = System.getProperty("java.naming.provider.url",
-                DEFAULT_BROKER_URL);
+        final String brokerUrl = System.getProperty("java.naming.provider.url", DEFAULT_BROKER_URL);
 
         LOG.info("******************************");
-        LOG.info("Connecting to JBoss A-MQ Broker using URL: {}", brokerUrl);
+        LOG.info("Connecting to Fuse MQ Broker using URL: {}", brokerUrl);
         LOG.info("******************************");
 
         Connection connection = null;
@@ -56,30 +57,22 @@ public class SimpleConsumer {
             connection.start();
 
             Session session = connection.createSession(NON_TRANSACTED, Session.AUTO_ACKNOWLEDGE);
-            MessageConsumer consumer = session.createConsumer(destination);
+            MessageProducer producer = session.createProducer(destination);
 
-            LOG.info("Start consuming messages from {} with {}ms timeout",
-                    destination, MESSAGE_TIMEOUT_MILLISECONDS);
+            producer.setTimeToLive(MESSAGE_TIME_TO_LIVE_MILLISECONDS);
 
-            // Synchronous message consumer
-            int i = 1;
-            while (true) {
-                Message message = consumer.receive(MESSAGE_TIMEOUT_MILLISECONDS);
-                if (message != null) {
-                    i++;
-                    if (message instanceof TextMessage) {
-                        String text = ((TextMessage) message).getText();
-                        LOG.info("Got {}. message: {}", i, text);
-                    }
-                } else {
-                    break;
-                }
+            for (int i = 1; i <= NUM_MESSAGES_TO_BE_SENT; i++) {
+                TextMessage message = session.createTextMessage(i + ". message sent");
+                LOG.info("Sending to destination: {} this text: {}", destination, message.getText());
+                producer.send(message);
+                Thread.sleep(MESSAGE_DELAY_MILLISECONDS);
             }
 
-            consumer.close();
+            // Cleanup
+            producer.close();
             session.close();
         } catch (Throwable t) {
-            LOG.error("Error in Simple Consumer", t);
+            LOG.error("Error sending message", t);
         } finally {
             // Cleanup code
             // In general, you should always close producers, consumers,

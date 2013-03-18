@@ -1,4 +1,5 @@
-# Deploying Complex JBoss A-MQ Networks
+Deploying Complex JBoss A-MQ Networks
+=====================================
 
 This document provides details on how to configure and deploy a network
 of JBoss A-MQ master/slave networked brokers. We will use the Fuse
@@ -6,7 +7,7 @@ Management Console (FMC) to simplify configuring and deploying the
 configuration to multiple broker JVMs.
 
 Download and unpack a JBoss A-MQ distribution if you haven't already.
-Launch A-MQ by running `bin/a-mq` or `bin\a-mq.bat`. You should see a
+Launch JBoss A-MQ by running `bin/a-mq` or `bin\a-mq.bat`. You should see a
 terminal session. Install the FMC by running: 
 
     fabric:create -p fmc
