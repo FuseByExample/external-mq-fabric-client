@@ -73,3 +73,11 @@ it to a `Producer` container.
     profile-edit --features activemq,activemq-camel,camel-spring example-camel-producer
     profile-edit --bundles mvn:org.fusebyexample.mq-fabric/camel-producer/2.0.0-SNAPSHOT example-camel-producer
     container-create-child --profile example-camel-producer root Producer
+
+### Note
+jboss-fuse-6.0.0.redhat-019 Beta currently has an issue where the pre-defined
+`activemq-client` profile is missing a definition for the `jetty` feature.
+The following steps will workaround that issue, and allow the included camel
+examples to work correctly. This only needs to be done once.
+
+    profile-edit --repositories mvn:org.apache.karaf.assemblies.features/standard/2.3.0.redhat-60019/xml/features activemq-client
