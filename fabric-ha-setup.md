@@ -20,7 +20,7 @@ Keep the terminal session running, and connect to
 `http://localhost:8181/index.html` in a web browser. Once connected
 login using the admin userid that you setup. You should see the
 Containers page, with one active container (for the JVM that is running
-the FMC)
+the FMC).
 
 Click the Profiles tab and have a look at some of the profiles that
 already exist, like the mq and mq-base profiles. Profiles aggregate
@@ -35,6 +35,12 @@ We could easily create our custom profiles using the FMC GUI, but we'll
 do it even faster by executing some Fuse Fabric commands from the FMC
 command line. Information about Fuse Fabric is located here. Docs on
 the commands we'll use are here.
+
+This example project also includes a script of all the console commands
+used below that you can run *after* you've created a fabric using the
+`fabric:create` command above. The script is located in [setup-ha-fabric-mq.txt](./scripts/setup-ha-fabric-mq.txt).
+
+    shell:source file:///absolute/path/to/external-mq-fabric-client/scripts/setup-ha-fabric-mq.txt
 
 Lets start by creating two containers to hold a master/slave broker
 pair for an East region, and two containers to hold a master/slave
@@ -86,10 +92,10 @@ the slaves. Example:
     fusemq/mq-west                                                                               
        mq-west-broker              MQ-West2                       MQ-West1                       tcp://chirino-retina.chirino:62215
 
-First lets start a consumer running against a broker running in the 'mq-west' group:
+First lets start a consumer running against a broker running in the `mq-west` group:
 
-    java -jar extras/mq-client.jar consumer --user admin --password admin --brokerUrl 'discovery:(fabric:mq-west)'
+    java -jar extras/mq-client.jar consumer --user admin --password admin --brokerUrl "discovery:(fabric:mq-west)"
 
-Then lets start a producer running against a broker running in the 'mq-east' group:
+Then lets start a producer running against a broker running in the `mq-east` group:
 
-    java -jar extras/mq-client.jar producer --user admin --password admin --brokerUrl 'discovery:(fabric:mq-east)'
+    java -jar extras/mq-client.jar producer --user admin --password admin --brokerUrl "discovery:(fabric:mq-east)"
