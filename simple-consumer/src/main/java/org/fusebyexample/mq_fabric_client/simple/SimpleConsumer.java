@@ -33,6 +33,13 @@ public class SimpleConsumer {
     private static final int MESSAGE_TIMEOUT_MILLISECONDS = 120000;
 
     public static void main(String args[]) {
+        final String brokerUrl = System.getProperty("java.naming.provider.url");
+
+        if (brokerUrl != null) {
+            LOG.info("******************************");
+            LOG.info("Overriding jndi brokerUrl, now using: {}", brokerUrl);
+            LOG.info("******************************");
+        }
 
         Connection connection = null;
 

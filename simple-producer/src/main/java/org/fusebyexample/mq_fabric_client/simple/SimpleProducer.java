@@ -35,6 +35,13 @@ public class SimpleProducer {
     private static final String DESTINATION_NAME = "queue/simple";
 
     public static void main(String args[]) {
+        final String brokerUrl = System.getProperty("java.naming.provider.url");
+
+        if (brokerUrl != null) {
+            LOG.info("******************************");
+            LOG.info("Overriding jndi brokerUrl, now using: {}", brokerUrl);
+            LOG.info("******************************");
+        }
 
         Connection connection = null;
 

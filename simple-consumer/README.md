@@ -22,19 +22,17 @@ Run this command:
 
 	> mvn exec:java
 
-<!-- 
-  A way to figure out which container is currently the master is to
-  inspect the logs:
+To figure out which container is currently the master from the command line
+is to inspect the logs:
 
-  cat instances/MQ-West1/data/log/karaf.log | grep mq-fabric
--->
+    cat instances/MQ-East1/data/log/karaf.log | grep mq-fabric
 
 After the example is up and running and you see JMS messages being logged to the
 consumer's console, kill the master broker on the west. You can use the
 `cluster-list` command in the karaf to find out which container is currently
 the master. For example:
 
-    JBossA-MQ:karaf@root> cluster-list 
+    JBossA-MQ:karaf@root> fabric:cluster-list
     [cluster]                      [masters]                      [slaves]                       [services]
     stats/default                                                                                
     fusemq/mq-east                                                                               
