@@ -131,6 +131,18 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-maven-plugin</artifactId>
                 <version>${camel.version}</version>
+                <configuration>
+                    <systemProperties>
+                        <systemProperty>
+                            <key>zookeeper.url</key>
+                            <value>${zookeeper.url}</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <key>zookeeper.password</key>
+                            <value>${zookeeper.password}</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
             </plugin>
         </plugins>
     </build>
