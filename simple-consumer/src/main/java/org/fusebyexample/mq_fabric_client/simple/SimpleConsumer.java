@@ -31,14 +31,8 @@ public class SimpleConsumer {
     private static final String CONNECTION_FACTORY_NAME = "myJmsFactory";
     private static final String DESTINATION_NAME = "queue/simple";
     private static final int MESSAGE_TIMEOUT_MILLISECONDS = 120000;
-    private static final String DEFAULT_BROKER_URL = "discovery:(fabric:default)";
 
     public static void main(String args[]) {
-        final String brokerUrl = System.getProperty("java.naming.provider.url", DEFAULT_BROKER_URL);
-
-        LOG.info("******************************");
-        LOG.info("Connecting to JBoss A-MQ Broker using URL: {}", brokerUrl);
-        LOG.info("******************************");
 
         Connection connection = null;
 
