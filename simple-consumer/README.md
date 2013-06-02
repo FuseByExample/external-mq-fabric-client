@@ -22,12 +22,8 @@ Run this command:
 
 	> mvn exec:java
 
-You should see console messages that show the producer connected using the URL
-
-	discovery:(fabric:mq-west)
-
 <!-- 
-  Another way to figure out which container is currently the master is to
+  A way to figure out which container is currently the master is to
   inspect the logs:
 
   cat instances/MQ-West1/data/log/karaf.log | grep mq-fabric
