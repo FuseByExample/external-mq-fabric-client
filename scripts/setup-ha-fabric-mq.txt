@@ -1,5 +1,0 @@
-container-create-child --jmx-user admin --jmx-password admin root MQ-East 2
-container-create-child --jmx-user admin --jmx-password admin root MQ-West 2
-mq-create --group mq-east --networks mq-west --networks-username admin --networks-password admin --assign-container MQ-East1,MQ-East2 mq-east-broker
-mq-create --group mq-west --networks mq-east --networks-username admin --networks-password admin --assign-container MQ-West1,MQ-West2 mq-west-broker
-

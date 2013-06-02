@@ -38,9 +38,9 @@ the commands we'll use are here.
 
 This example project also includes a script of all the console commands
 used below that you can run *after* you've created a fabric using the
-`fabric:create` command above. The script is located in [setup-ha-fabric-mq.txt](./scripts/setup-ha-fabric-mq.txt).
+`fabric:create` command above. The script is located in [fabric-ha-setup-master-slave.txt](./scripts/fabric-ha-setup-master-slave.txt).
 
-    shell:source file:///absolute/path/to/external-mq-fabric-client/scripts/setup-ha-fabric-mq.txt
+    shell:source file:///absolute/path/to/external-mq-fabric-client/scripts/fabric-ha-setup-master-slave.txt
 
 Lets start by creating two containers to hold a master/slave broker
 pair for an East region, and two containers to hold a master/slave
@@ -50,28 +50,28 @@ running the FMC. Note that default name of that initial container is
 'root'.
 
 Execute this command from the FMC terminal session to create containers
-named MQ-East1 and MQ-East2:
+named A-MQ-East1 and A-MQ-East2:
 
-    container-create-child root MQ-East 2
+    fabric:container-create-child root A-MQ-East 2
 
-Execute this command to create containers named MQ-West1 and MQ-West2:
+Execute this command to create containers named A-MQ-West1 and A-MQ-West2:
 
-    container-create-child root MQ-West 2
+    fabric:container-create-child root A-MQ-West 2
 
 Execute this command (all on one line) to provision the East containers
 with a master/slave broker pair identified with the group name
-"mq-east", and networked to the mq-west brokers:
+"a-mq-east", and networked to the a-mq-west brokers:
 
-    mq-create --group mq-east --networks mq-west --networks-username admin --networks-password admin --assign-container MQ-East1,MQ-East2 mq-east-broker
+    fabric:mq-create --group a-mq-east --networks a-mq-west --networks-username admin --networks-password admin --assign-container A-MQ-East1,A-MQ-East2 a-mq-east-profile
 
 Execute this command (all on one line) to provision the West containers
 with a master/slave broker pair identified with the group name
-"mq-west", and networked to the mq-east brokers:
+"a-mq-west", and networked to the a-mq-east brokers:
 
-    mq-create --group mq-west --networks mq-east --networks-username admin --networks-password admin --assign-container MQ-West1,MQ-West2 mq-west-broker
+    fabric:mq-create --group a-mq-west --networks a-mq-east --networks-username admin --networks-password admin --assign-container A-MQ-West1,A-MQ-West2 a-mq-west-profile
 
 At this point, our network of brokers -- four instances of ActiveMQ, each
-running in its own container, networked together and with failover -- is up and]
+running in its own container, networked together and with failover -- is up and
 running!
 
 To verify if everything is working properly lets test running some messages over
@@ -80,22 +80,22 @@ standalone server.
 
 <!-- NOTE: You need an jboss-fuse more recent than the 015 build for the following to work. -->
 
-You can use the `cluster-list` command to see the status of the cluster and find
+You can use the `fabric:cluster-list` command to see the status of the cluster and find
 out which containers were elected to be the masters and which are assigned to
 the slaves. Example:
 
-    JBossFuse:karaf@root> cluster-list
+    JBossFuse:karaf@root> fabric:cluster-list
     [cluster]                      [masters]                      [slaves]                       [services]
     stats/default                                                                                
-    fusemq/mq-east                                                                               
-       mq-east-broker              MQ-East2                       MQ-East1                       tcp://chirino-retina.chirino:62184
-    fusemq/mq-west                                                                               
-       mq-west-broker              MQ-West2                       MQ-West1                       tcp://chirino-retina.chirino:62215
+    fusemq/a-mq-east
+       a-mq-east-profile           A-MQ-East2                     A-MQ-East1                     tcp://chirino-retina.chirino:62184
+    fusemq/a-mq-west
+       a-mq-west-profile           A_MQ-West1                     A-MQ-West2                     tcp://chirino-retina.chirino:62215
 
-First lets start a consumer running against a broker running in the `mq-west` group:
+First lets start a consumer running against a broker running in the `a-mq-west` group:
 
-    java -jar extras/mq-client.jar consumer --user admin --password admin --brokerUrl "discovery:(fabric:mq-west)"
+    java -jar extras/mq-client.jar consumer --user admin --password admin --brokerUrl "discovery:(fabric:a-mq-west)"
 
-Then lets start a producer running against a broker running in the `mq-east` group:
+Then lets start a producer running against a broker running in the `a-mq-east` group:
 
-    java -jar extras/mq-client.jar producer --user admin --password admin --brokerUrl "discovery:(fabric:mq-east)"
+    java -jar extras/mq-client.jar producer --user admin --password admin --brokerUrl "discovery:(fabric:a-mq-east)"

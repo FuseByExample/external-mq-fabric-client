@@ -83,7 +83,7 @@ Setup the examples against a fabric-based network of brokers
 
 Start a fabric-based network of fault-tolerant (master/slave) brokers.
 For instructions on how to configure and deploy such a network, see the
-[fabric-ha-setup.md](./fabric-ha-setup.md).
+[fabric-ha-setup-master-slave.md](./docs/fabric-ha-setup-master-slave.md).
 
 This configuration features two broker groups networked together,
 named "mq-east" and "mq-west", each of which is comprised of a
