@@ -16,7 +16,7 @@ Running the example
 -------------------
 
 Assumes you have setup a fabric-based network of brokers per the instructions in
-[fabric-ha-setup.md](https://github.com/FuseByExample/external-mq-fabric-client/blob/master/fabric-ha-setup.md).
+[fabric-ha-setup-master-slave.md](./docs/fabric-ha-setup-master-slave.md).
 
 Run this command:
 
