@@ -16,7 +16,7 @@ Running the example
 -------------------
 
 Assumes you have setup a fabric-based network of brokers per the instructions in
-[fabric-ha-setup-master-slave.md](./docs/fabric-ha-setup-master-slave.md).
+[fabric-ha-setup-master-slave.md](../docs/fabric-ha-setup-master-slave.md).
 
 Run this command:
 
