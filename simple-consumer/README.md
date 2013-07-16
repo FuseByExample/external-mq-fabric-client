@@ -5,8 +5,8 @@ This project shows how to connect to JBoss A-MQ message brokers running in Fuse
 Fabric from a pure JMS client running outside of Fuse Fabric (i.e. when the JMS
 client is not running within a Fabric-enabled JBoss Fuse ESB container).
 
-Building the examples
----------------------
+Building the example
+--------------------
 
 To build the example, execute the command: 
 
@@ -25,20 +25,20 @@ Run this command:
 To figure out which container is currently the master from the command line
 is to inspect the logs:
 
-    cat instances/MQ-East1/data/log/karaf.log | grep mq-fabric
+    cat instances/A-MQ-East1/data/log/karaf.log | grep mq-fabric
 
 After the example is up and running and you see JMS messages being logged to the
 consumer's console, kill the master broker on the west. You can use the
 `cluster-list` command in the karaf to find out which container is currently
 the master. For example:
 
-    JBossA-MQ:karaf@root> fabric:cluster-list
+    JBossA-MQ:karaf@root> cluster-list
     [cluster]                      [masters]                      [slaves]                       [services]
-    stats/default                                                                                
-    fusemq/mq-east                                                                               
-       mq-east-broker              MQ-East2                       MQ-East1                       tcp://chirino-retina.chirino:62184
-    fusemq/mq-west                                                                               
-       mq-west-broker              MQ-West2                       MQ-West1                       tcp://chirino-retina.chirino:62215
+    stats/default
+    fusemq/a-mq-east
+       a-mq-east-profile           A-MQ-East2                     A-MQ-East1                     tcp://chirino-retina.chirino:62184
+    fusemq/a-mq-west
+       a-mq-west-profile           A-MQ-West2                     A-MQ-West1                     tcp://chirino-retina.chirino:62215
 
 You can stop the master west container using FMC, or kill the container's process
 in the OS) and watch the consumer failover, reconnect and resume consuming
