@@ -1,4 +1,4 @@
-fabric:container-create-child --jmx-user admin --jmx-password admin root A-MQ-East 2
-fabric:container-create-child --jmx-user admin --jmx-password admin root A-MQ-West 2
-fabric:mq-create --group a-mq-east --networks a-mq-west --networks-username admin --networks-password admin --assign-container A-MQ-East1,A-MQ-East2 a-mq-east-profile
-fabric:mq-create --group a-mq-west --networks a-mq-east --networks-username admin --networks-password admin --assign-container A-MQ-West1,A-MQ-West2 a-mq-west-profile
+fabric:container-create-child --jmx-user admin --jmx-password admin root AMQ-East 2
+fabric:container-create-child --jmx-user admin --jmx-password admin root AMQ-West 2
+fabric:mq-create --group amq-east --networks amq-west --networks-username admin --networks-password admin --assign-container AMQ-East1,AMQ-East2 amq-east-profile
+fabric:mq-create --group amq-west --networks amq-east --networks-username admin --networks-password admin --assign-container AMQ-West1,AMQ-West2 amq-west-profile
