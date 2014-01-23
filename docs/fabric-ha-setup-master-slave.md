@@ -33,8 +33,7 @@ message broker configuration, so we'll create our own profiles.
 
 We could easily create our custom profiles using the FMC GUI, but we'll
 do it even faster by executing some Fuse Fabric commands from the FMC
-command line. Information about Fuse Fabric is located here. Docs on
-the commands we'll use are here.
+command line. 
 
 This example project also includes a script of all the console commands
 used below that you can run *after* you've created a fabric using the
@@ -92,10 +91,3 @@ the slaves. Example:
     fusemq/a-mq-west
        a-mq-west-profile           A_MQ-West1                     A-MQ-West2                     tcp://chirino-retina.chirino:62215
 
-First lets start a consumer running against a broker running in the `a-mq-west` group:
-
-    java -jar extras/mq-client.jar consumer --user admin --password admin --brokerUrl "discovery:(fabric:a-mq-west)"
-
-Then lets start a producer running against a broker running in the `a-mq-east` group:
-
-    java -jar extras/mq-client.jar producer --user admin --password admin --brokerUrl "discovery:(fabric:a-mq-east)"
