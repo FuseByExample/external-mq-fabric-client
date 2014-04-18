@@ -30,10 +30,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <activemq.version>5.8.0.redhat-60024</activemq.version>
-        <camel.version>2.10.0.redhat-60024</camel.version>
-        <amq.version>6.0.0.redhat-024</amq.version>
-        <fabric.version>7.2.0.redhat-024</fabric.version>
+        <activemq.version>5.9.0.redhat-610379</activemq.version>
+        <camel.version>2.12.0.redhat-610379</camel.version>
+        <amq.version>6.1.0.redhat-379</amq.version>
+        <fabric.version>1.0.0.redhat-379</fabric.version>
 
         <osgi.version>4.3.0</osgi.version>
         <slf4j.version>1.6.6</slf4j.version>
@@ -82,18 +82,13 @@
                 <version>${amq.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.fusesource.fabric</groupId>
+                <groupId>io.fabric8</groupId>
                 <artifactId>fabric-groups</artifactId>
                 <version>${fabric.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.fusesource.fabric</groupId>
+                <groupId>io.fabric8</groupId>
                 <artifactId>fabric-zookeeper</artifactId>
-                <version>${fabric.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.fusesource.fabric</groupId>
-                <artifactId>fabric-linkedin-zookeeper</artifactId>
                 <version>${fabric.version}</version>
             </dependency>
             <dependency>
@@ -173,10 +168,11 @@
     </build>
 
     <repositories>
+
         <repository>
-            <id>release.fusesource.org</id>
-            <name>FuseSource Release Repository</name>
-            <url>http://repo.fusesource.com/nexus/content/repositories/releases</url>
+            <id>fuse-releases</id>
+            <name>JBoss Fuse Release Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/fs-releases/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -184,26 +180,13 @@
                 <enabled>true</enabled>
             </releases>
         </repository>
-<!--
-        <repository>
-            <id>ea.fusesource.org</id>
-            <name>FuseSource EA Repository</name>
-            <url>http://repo.fusesource.com/nexus/content/groups/ea</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
--->
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
-            <id>release.fusesource.org</id>
-            <name>FuseSource Release Repository</name>
-            <url>http://repo.fusesource.com/nexus/content/repositories/releases</url>
+            <id>fuse-releases</id>
+            <name>JBoss Fuse Release Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/fs-releases/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -211,18 +194,5 @@
                 <enabled>true</enabled>
             </releases>
         </pluginRepository>
-<!--
-        <pluginRepository>
-            <id>ea.fusesource.org</id>
-            <name>FuseSource EA Repository</name>
-            <url>http://repo.fusesource.com/nexus/content/groups/ea</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </pluginRepository>
--->
     </pluginRepositories>
 </project>
