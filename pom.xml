@@ -23,7 +23,7 @@
     <groupId>org.fusebyexample.mq-fabric</groupId>
     <artifactId>mq-fabric-client</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.1.0-SNAPSHOT</version>
 
     <name>MQ-Fabric Client Example</name>
 
@@ -35,7 +35,7 @@
         <amq.version>6.1.0.redhat-379</amq.version>
         <fabric.version>1.0.0.redhat-379</fabric.version>
 
-        <osgi.version>4.3.0</osgi.version>
+        <osgi.version>5.0.0</osgi.version>
         <slf4j.version>1.6.6</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
         <junit.version>4.11</junit.version>
@@ -168,11 +168,21 @@
     </build>
 
     <repositories>
-
         <repository>
-            <id>fuse-releases</id>
-            <name>JBoss Fuse Release Repository</name>
+            <id>fusesource.releases</id>
+            <name>FuseSource Release Repository</name>
             <url>https://repository.jboss.org/nexus/content/repositories/fs-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>fusesource.ea</id>
+            <name>FuseSource Early Access Release Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/ea/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -181,12 +191,22 @@
             </releases>
         </repository>
     </repositories>
-
     <pluginRepositories>
         <pluginRepository>
-            <id>fuse-releases</id>
-            <name>JBoss Fuse Release Repository</name>
+            <id>fusesource.releases</id>
+            <name>FuseSource Release Repository</name>
             <url>https://repository.jboss.org/nexus/content/repositories/fs-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>fusesource.ea</id>
+            <name>FuseSource Early Access Release Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/ea/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>

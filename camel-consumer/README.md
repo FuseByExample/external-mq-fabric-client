@@ -24,13 +24,13 @@ Run this command:
 
 You should see console messages that show the producer connected using the URL
 
-	discovery:(fabric:a-mq-west)
+	discovery:(fabric:amq-west)
 
 <!-- 
   Another way to figure out which container is currently the master is to
   inspect the logs:
 
-  cat instances/A-MQ-West1/data/log/karaf.log | grep mq-fabric
+  cat instances/AMQ-West1/data/log/karaf.log | grep mq-fabric
 -->
 
 After the example is up and running and you see JMS messages being logged to the
@@ -41,10 +41,10 @@ the master. For example:
     JBossA-MQ:karaf@root> cluster-list 
     [cluster]                      [masters]                      [slaves]                       [services]
     stats/default                                                                                
-    fusemq/a-mq-east
-       a-mq-east-profile           A-MQ-East2                     A-MQ-East1                     tcp://chirino-retina.chirino:62184
-    fusemq/a-mq-west
-       a-mq-west-profile           A-MQ-West2                     A-MQ-West1                     tcp://chirino-retina.chirino:62215
+    fusemq/amq-east
+       amq-east-profile           AMQ-East2                     AMQ-East1                     tcp://chirino-retina.chirino:62184
+    fusemq/amq-west
+       amq-west-profile           AMQ-West2                     AMQ-West1                     tcp://chirino-retina.chirino:62215
 
 You can stop the master west container using FMC, or kill the container's process
 in the OS) and watch the consumer failover, reconnect and resume consuming
@@ -68,8 +68,8 @@ In the JBoss Fuse console where you initially created the fabric, run the
 following commands to create a `example-camel-consumer` profile, and deploy
 it to a `Consumer` container.
 
-    fabric:profile-create --parents activemq-client example-camel-consumer
-    fabric:profile-edit --repositories mvn:org.apache.camel.karaf/apache-camel/2.10.0.redhat-60024/xml/features example-camel-consumer
-    fabric:profile-edit --features activemq,activemq-camel,camel-spring example-camel-consumer
-    fabric:profile-edit --bundles mvn:org.fusebyexample.mq-fabric/camel-consumer/2.0.0-SNAPSHOT example-camel-consumer
+    fabric:profile-create --parents feature-camel example-camel-consumer
+    fabric:profile-edit --repositories mvn:org.apache.activemq/activemq-karaf/\${version:activemq}/xml/features example-camel-consumer
+    fabric:profile-edit --features mq-fabric-camel example-camel-consumer
+    fabric:profile-edit --bundles mvn:org.fusebyexample.mq-fabric/camel-consumer/2.1.0-SNAPSHOT example-camel-consumer
     fabric:container-create-child --profile example-camel-consumer root Consumer

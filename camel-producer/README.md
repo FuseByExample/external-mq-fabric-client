@@ -24,13 +24,13 @@ After the consumer is running, run this command:
 
 You should see console messages that show the producer connected using the URL
 
-	discovery:(fabric:a-mq-east)
+	discovery:(fabric:amq-east)
 
 <!--
   Another way to figure out which container is currently the master is to
   inspect the logs:
 
-  cat instances/A-MQ-East1/data/log/karaf.log | grep mq-fabric
+  cat instances/AMQ-East1/data/log/karaf.log | grep mq-fabric
 -->
 
 After the example is up and running and you see JMS messages being logged to the
@@ -41,10 +41,10 @@ the master. For example:
     JBossA-MQ:karaf@root> cluster-list 
     [cluster]                      [masters]                      [slaves]                       [services]
     stats/default                                                                                
-    fusemq/a-mq-east
-       a-mq-east-profile           A-MQ-East2                     A-MQ-East1                     tcp://chirino-retina.chirino:62184
+    fusemq/amq-east
+       amq-east-profile           AMQ-East2                     AMQ-East1                     tcp://chirino-retina.chirino:62184
     fusemq/a-mq-west
-       a-mq-west-profile           A-MQ-West2                     A-MQ-West1                     tcp://chirino-retina.chirino:62215
+       amq-west-profile           AMQ-West2                     AMQ-West1                     tcp://chirino-retina.chirino:62215
 
 You can stop the master east container using FMC, or kill the container's process
 in the OS) and watch the producer failover, reconnect and resume sending
@@ -68,8 +68,9 @@ In the JBoss Fuse console where you initially created the fabric, run the
 following commands to create a `example-camel-producer` profile, and deploy
 it to a `Producer` container.
 
-    fabric:profile-create --parents activemq-client example-camel-producer
-    fabric:profile-edit --repositories mvn:org.apache.camel.karaf/apache-camel/2.10.0.redhat-60024/xml/features example-camel-producer
-    fabric:profile-edit --features activemq,activemq-camel,camel-spring example-camel-producer
-    fabric:profile-edit --bundles mvn:org.fusebyexample.mq-fabric/camel-producer/2.0.0-SNAPSHOT example-camel-producer
+    fabric:profile-create --parents feature-camel example-camel-producer
+    fabric:profile-edit --repositories mvn:org.apache.activemq/activemq-karaf/\${version:activemq}/xml/features example-camel-producer
+    fabric:profile-edit --features mq-fabric-camel example-camel-producer
+    fabric:profile-edit --bundles mvn:org.fusebyexample.mq-fabric/camel-producer/2.1.0-SNAPSHOT example-camel-producer
     fabric:container-create-child --profile example-camel-producer root Producer
+

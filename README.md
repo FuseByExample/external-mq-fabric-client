@@ -53,18 +53,13 @@ discovery protocol (see the `pom.xml` for version info):
         <version>${amq.version}</version>
     </dependency>
     <dependency>
-        <groupId>org.fusesource.fabric</groupId>
+        <groupId>io.fabric8</groupId>
         <artifactId>fabric-groups</artifactId>
         <version>${fabric.version}</version>
     </dependency>
     <dependency>
-        <groupId>org.fusesource.fabric</groupId>
+        <groupId>io.fabric8</groupId>
         <artifactId>fabric-zookeeper</artifactId>
-        <version>${fabric.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.fusesource.fabric</groupId>
-        <artifactId>fabric-linkedin-zookeeper</artifactId>
         <version>${fabric.version}</version>
     </dependency>
     <dependency>
@@ -86,10 +81,10 @@ For instructions on how to configure and deploy such a network, see the
 [fabric-ha-setup-master-slave.md](./docs/fabric-ha-setup-master-slave.md).
 
 This configuration features two broker groups networked together,
-named "mq-east" and "mq-west", each of which is comprised of a
+named "amq-east" and "amq-west", each of which is comprised of a
 master/slave pair (four brokers total). Consumers will connect to the
-active broker in the "mq-west" group; producers to the active broker
-in the "mq-east" group, insuring that messages flow across the
+active broker in the "amq-west" group; producers to the active broker
+in the "amq-east" group, insuring that messages flow across the
 network. After the example is up and running, one can kill either or
 both of the active brokers and observe continued message flow across
 the network.
