@@ -93,7 +93,7 @@ Running the examples
 --------------------
 
 Follow the instructions in the various consumer and producer paired example
-modules
+modules:
 
 * simple-consumer and simple-producer
 * camel-consumer and camel-producer
