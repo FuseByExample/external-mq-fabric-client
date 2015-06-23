@@ -39,7 +39,7 @@
 
         <!-- Add mq-fabric support -->
         <dependency>
-            <groupId>org.jboss.amq</groupId>
+            <groupId>io.fabric8.mq</groupId>
             <artifactId>mq-fabric</artifactId>
             <scope>runtime</scope>
         </dependency>
