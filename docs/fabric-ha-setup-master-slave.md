@@ -95,8 +95,9 @@ the slaves. Example:
 
 First lets start a consumer running against a broker running in the `amq-west` group:
 
-    java -jar extras/mq-client.jar consumer --user admin --password admin --brokerUrl "discovery:(fabric:amq-west)"
+    JBossFuse:karaf@root> activemq:consumer --user admin --password admin --brokerUrl "discovery:(fabric:amq-west)"
 
 Then lets start a producer running against a broker running in the `amq-east` group:
+Launch a new Karaf client `bin/client` or `bin\client.bat`
 
-    java -jar extras/mq-client.jar producer --user admin --password admin --brokerUrl "discovery:(fabric:amq-east)"
+    JBossFuse:admin@root> activemq:producer --user admin --password admin --brokerUrl "discovery:(fabric:amq-east)"
